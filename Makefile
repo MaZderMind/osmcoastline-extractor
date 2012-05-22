@@ -33,7 +33,7 @@ LIB_OGR      = $(shell gdal-config --libs)
 
 all: osmcoastline-extractor
 
-osmcoastline-extractor: extractor.cpp
+osmcoastline-extractor: extractor.cpp osmium-handler.hpp output-handler.hpp
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_OGR) $(CXXFLAGS_GEOS) -o $@ $< $(LDFLAGS) $(LIB_PROTOBUF) $(LIB_OGR) $(LIB_GEOS)
 
 install:

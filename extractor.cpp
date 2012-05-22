@@ -2,11 +2,6 @@
 
 #define OSMIUM_MAIN
 #include <osmium.hpp>
-#include <osmium/storage/byid/sparsetable.hpp>
-#include <osmium/storage/byid/mmap_file.hpp>
-#include <osmium/handler/coordinates_for_ways.hpp>
-#include <osmium/handler/multipolygon.hpp>
-#include <osmium/geometry/multipolygon.hpp>
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -18,7 +13,7 @@ struct config_t {
     std::vector<int> simplify_levels, admin_levels;
 } cfg;
 
-
+#include "output-handler.hpp"
 #include "osmium-handler.hpp"
 
 void usage(char* binary) {
@@ -122,6 +117,10 @@ int main(int argc, char *argv[]) {
     Osmium::init(cfg.debug);
     Osmium::OSMFile infile(cfg.osmfile);
 
+    // Output Handling
+    OutputHandler out = OutputHandler(cfg.outfile);
+    
+    // Multipolygon Building
     Osmium::Handler::Multipolygon handler_multipolygon(cfg.attempt_repair, callbackPass2Handler);
 
     // first pass
@@ -132,7 +131,7 @@ int main(int argc, char *argv[]) {
 
     // second pass
     std::cout << "Scanning for Boundaries... 2nd Pass" << std::endl;
-    HandlerPass2 handler_pass2(&handler_multipolygon);
+    HandlerPass2 handler_pass2(&handler_multipolygon, &out);
     setPass2Handler(&handler_pass2);
 
     infile.read(handler_pass2);
