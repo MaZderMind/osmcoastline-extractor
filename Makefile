@@ -45,5 +45,5 @@ clean:
 
 spaces:
 	dos2unix *.cpp
-	sed -i 's/\t/    /g' *.cpp
-	sed -i 's/[ \t]*$$//g' *.cpp
+	sed -i 's/\t/    /g' *.cpp *.hpp
+	sed -i 's/[ \t]*$$//g' *.cpp *.hpp
