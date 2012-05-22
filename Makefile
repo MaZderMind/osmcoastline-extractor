@@ -44,6 +44,6 @@ clean:
 	rm -f *.o core osm-history-splitter
 
 spaces:
-	dos2unix *.cpp
+	dos2unix *.cpp *.hpp
 	sed -i 's/\t/    /g' *.cpp *.hpp
 	sed -i 's/[ \t]*$$//g' *.cpp *.hpp
