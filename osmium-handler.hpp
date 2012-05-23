@@ -89,7 +89,7 @@ public:
             // ignore bad-bad-bad, unnamed boundary-ways
             //  http://www.openstreetmap.org/api/0.6/way/23623225/4
             if (!name) {
-                std::cerr << "  ignoring unnamed boundary #" << area->id() << " from ";
+                std::cerr << "  ignoring unnamed boundary from ";
                 if (area->get_type() == 3) {
                     std::cerr << "way ";
                 }
